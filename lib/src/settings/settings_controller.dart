@@ -18,17 +18,14 @@ class SettingsController with ChangeNotifier {
   late bool _isLoggedIn;
   late ThemeMode _themeMode;
   late String _currentLanguage;
-  late int _selectedPage;
 
   ThemeMode get themeMode => _themeMode;
   bool get isLoggedIn => _isLoggedIn;
   String get currentLanguage => _currentLanguage;
-  int get selectedPage => _selectedPage;
 
   Future<void> loadSettings() async {
     _themeMode = await _settingsService.themeMode();
-    _selectedPage = 0;
-    _isLoggedIn = false;
+    _isLoggedIn = _settingsService.isLoggedIn;
 
     notifyListeners();
   }
@@ -45,19 +42,14 @@ class SettingsController with ChangeNotifier {
     await _settingsService.updateThemeMode(newThemeMode);
   }
 
-  // Login:---------------------------------------------------------------------
   Future<bool> saveIsLoggedIn(bool value) async {
     if (_isLoggedIn != value) {
       _isLoggedIn = value;
+
       notifyListeners();
-      // return _settingsService.saveIsLoggedIn(value);
+
+      await _settingsService.saveIsLoggedIn(value);
     }
     return value;
-  }
-
-  // Bottom Navigator :---------------------------------------------------------------------
-  void updateSelectedPage(int selectedPage) async {
-    _selectedPage = selectedPage;
-    notifyListeners();
   }
 }
