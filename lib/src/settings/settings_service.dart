@@ -1,7 +1,5 @@
-import 'package:equiz/src/shared_preferences/constants/preferences.dart';
 import 'package:equiz/src/shared_preferences/shared_preference_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 /// A service that stores and retrieves user settings.
 ///

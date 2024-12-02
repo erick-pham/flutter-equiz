@@ -1,3 +1,4 @@
+import 'package:equiz/src/utils/routing.dart';
 import 'package:flutter/material.dart';
 
 import 'settings_controller.dart';
@@ -13,6 +14,12 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void handleLogout() {
+      // Logout and remove all routes
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(RoutingUtils.loginRoute, (route) => false);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -23,23 +30,50 @@ class SettingsView extends StatelessWidget {
         //
         // When a user selects a theme from the dropdown list, the
         // SettingsController is updated, which rebuilds the MaterialApp.
-        child: DropdownButton<ThemeMode>(
-          // Read the selected themeMode from the controller
-          value: controller.themeMode,
-          // Call the updateThemeMode method any time the user selects a theme.
-          onChanged: controller.updateThemeMode,
-          items: const [
-            DropdownMenuItem(
-              value: ThemeMode.system,
-              child: Text('System Theme'),
+        child: Row(
+          children: [
+            Expanded(
+                child: DropdownButton<ThemeMode>(
+              // Read the selected themeMode from the controller
+              value: controller.themeMode,
+              // Call the updateThemeMode method any time the user selects a theme.
+              onChanged: controller.updateThemeMode,
+              items: const [
+                DropdownMenuItem(
+                  value: ThemeMode.system,
+                  child: Text('System Theme'),
+                ),
+                DropdownMenuItem(
+                  value: ThemeMode.light,
+                  child: Text('Light Theme'),
+                ),
+                DropdownMenuItem(
+                  value: ThemeMode.dark,
+                  child: Text('Dark Theme'),
+                )
+              ],
+            )),
+            Expanded(
+              child: ElevatedButton(
+                  onPressed: () async {
+                    await controller.saveIsLoggedIn(false);
+                  },
+                  child: const Text('Logout out')),
             ),
-            DropdownMenuItem(
-              value: ThemeMode.light,
-              child: Text('Light Theme'),
+            Expanded(
+              child: TextButton(
+                  onPressed: () async {
+                    await controller.saveIsLoggedIn(false);
+                  },
+                  child: const Text('Logout out')),
             ),
-            DropdownMenuItem(
-              value: ThemeMode.dark,
-              child: Text('Dark Theme'),
+            Expanded(
+              child: OutlinedButton(
+                  onPressed: () async {
+                    await controller.saveIsLoggedIn(false);
+                    handleLogout();
+                  },
+                  child: const Text('Logout out')),
             )
           ],
         ),

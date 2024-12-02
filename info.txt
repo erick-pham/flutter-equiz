@@ -1,0 +1,95 @@
+About Electric Quiz
+
+Electric Quiz is a fast-paced, electrifying quiz app that tests your knowledge on a wide range of topics. With a sleek design and challenging questions, Electric Quiz is the perfect way to learn new things and have fun at the same time.
+
+Features:
+
+Fast-paced gameplay: Answer questions quickly and correctly to earn points.
+Wide range of topics: Test your knowledge on everything from science and history to pop culture and current events.
+Challenging questions: Put your knowledge to the test with questions that will make you think.
+Sleek design: A clean and intuitive interface that makes it easy to play.
+Leaderboard: Compete with friends and other players to see who knows the most.
+How to play:
+
+Download the Electric Quiz app.
+Choose a topic.
+Answer the questions as quickly and accurately as possible.
+Compete with other players to earn the highest score.
+Have fun and learn something new with Electric Quiz!
+
+
+https://craftpix.net/?s=food
+
+1. Free Resources
+OpenGameArt
+
+    Website: opengameart.org
+    Features: Free, open-license assets for games, including food icons, sprites, and more.
+    Licensing: Ensure to check the license type (e.g., CC0, GPL).
+
+Kenney Assets
+
+    Website: kenney.nl
+    Features: Free and paid 2D/3D game assets, including themed food packs.
+    Licensing: Most assets are public domain (CC0).
+
+CraftPix
+
+    Website: craftpix.net
+    Features: Free and premium game assets for 2D games, including food sprites.
+    Licensing: Check for free downloads or affordable bundles.
+
+GameDev Market
+
+    Website: gamedevmarket.net
+    Features: A wide range of free and premium game assets.
+    Licensing: Check individual asset licenses.
+
+Itch.io
+
+    Website: itch.io
+    Features: Free and paid game assets uploaded by indie developers, including food-related sprites.
+    Licensing: Each asset includes licensing details.
+
+Pixabay
+
+    Website: pixabay.com
+    Features: Free high-quality images, illustrations, and vectors. Use keywords like "food sprite" or "game food."
+    Licensing: Free for commercial and non-commercial use (CC0).
+
+2. Paid Resources
+Unity Asset Store
+
+    Website: assetstore.unity.com
+    Features: High-quality game assets, including food sprites and 3D models.
+    Licensing: Licensed for Unity projects (can also be exported for other engines).
+
+Envato Elements
+
+    Website: envato.com
+    Features: Access to a wide range of premium assets, including illustrations, sprites, and textures.
+    Licensing: Commercial use included with a subscription.
+
+GraphicRiver
+
+    Website: graphicriver.net
+    Features: Affordable one-time purchase game assets, including food-themed icons and sprites.
+    Licensing: Commercial use allowed with the proper license.
+
+CGTrader
+
+    Website: cgtrader.com
+    Features: High-quality 3D models, including food assets for games.
+    Licensing: Paid assets with commercial licenses.
+
+3. AI-Generated or Custom Assets
+Fiverr
+
+    Website: fiverr.com
+    Features: Hire freelance artists to create custom food sprites or images.
+    Pricing: Based on artist rates.
+
+DALL·E (AI-Generated Images)
+
+    Features: Generate custom food images using AI tools like DALL·E or other platforms.
+    Licensing: Check usage rights for commercial projects.

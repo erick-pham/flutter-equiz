@@ -11,6 +11,8 @@ String numberToString(int number) {
     case 2:
       return RoutingUtils.profileRoute;
     case 3:
+      return RoutingUtils.gameRoute;
+    case 4:
       return RoutingUtils.settingRoute;
     default:
       throw ArgumentError('Invalid index');
@@ -25,8 +27,10 @@ int stringToNumber(String string) {
       return 1;
     case RoutingUtils.profileRoute:
       return 2;
-    case RoutingUtils.settingRoute:
+    case RoutingUtils.gameRoute:
       return 3;
+    case RoutingUtils.settingRoute:
+      return 4;
     default:
       throw ArgumentError('Invalid route name');
   }
@@ -62,6 +66,13 @@ class MyBottomNavigationBar extends StatelessWidget {
         SalomonBottomBarItem(
           icon: const Icon(Icons.person),
           title: const Text("Profile"),
+          selectedColor: Colors.teal,
+        ),
+
+        /// Game
+        SalomonBottomBarItem(
+          icon: const Icon(Icons.games),
+          title: const Text("Game"),
           selectedColor: Colors.teal,
         ),
 

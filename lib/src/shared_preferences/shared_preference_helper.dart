@@ -14,24 +14,24 @@ class SharedPreferenceHelper {
 
   // General Methods: ----------------------------------------------------------
   Future<String?> get authToken async {
-    return _sharedPreference.getString(Preferences.auth_token);
+    return _sharedPreference.getString(Preferences.authToken);
   }
 
   Future<bool> saveAuthToken(String authToken) async {
-    return _sharedPreference.setString(Preferences.auth_token, authToken);
+    return _sharedPreference.setString(Preferences.authToken, authToken);
   }
 
   Future<bool> removeAuthToken() async {
-    return _sharedPreference.remove(Preferences.auth_token);
+    return _sharedPreference.remove(Preferences.authToken);
   }
 
   // Login:---------------------------------------------------------------------
   bool get isLoggedIn {
-    return _sharedPreference.getBool(Preferences.is_logged_in) ?? false;
+    return _sharedPreference.getBool(Preferences.isLoggedIn) ?? false;
   }
 
   Future<bool> saveIsLoggedIn(bool value) async {
-    return _sharedPreference.setBool(Preferences.is_logged_in, value);
+    return _sharedPreference.setBool(Preferences.isLoggedIn, value);
   }
 
   // Theme:------------------------------------------------------
@@ -46,10 +46,10 @@ class SharedPreferenceHelper {
 
   // Language:---------------------------------------------------
   String? get currentLanguage {
-    return _sharedPreference.getString(Preferences.current_language);
+    return _sharedPreference.getString(Preferences.currentLanguage);
   }
 
   Future<void> changeLanguage(String language) {
-    return _sharedPreference.setString(Preferences.current_language, language);
+    return _sharedPreference.setString(Preferences.currentLanguage, language);
   }
 }

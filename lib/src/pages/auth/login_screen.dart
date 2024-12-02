@@ -1,11 +1,12 @@
 import 'package:equiz/src/constants/assets.dart';
+import 'package:equiz/src/core/widgets/app_icon_widget.dart';
 import 'package:equiz/src/core/widgets/rounded_button_widget.dart';
 import 'package:equiz/src/pages/auth/repository/user_repository_impl.dart';
 import 'package:equiz/src/settings/settings_controller.dart';
+import 'package:equiz/src/utils/routing.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
-  // ignore: unused_field
   final UserRepositoryImpl userRepositoryImpl;
   final SettingsController settingsController;
 
@@ -14,15 +15,16 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (settingsController.isLoggedIn) {
+      // Navigate to home if logged in
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.of(context).pushNamed(
+          RoutingUtils.homeRoute,
+        );
+      });
+    }
     return Scaffold(
       body: _buildBody(context),
-      //   body: Center(
-      // child: ElevatedButton(
-      //   onPressed: () {
-      //     Navigator.pushNamed(context, RoutingUtils.homeRoute);
-      //   },
-      //   child: Text('Go to home'),
-      // ),
     );
   }
 
@@ -66,11 +68,8 @@ class LoginScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // AppIconWidget(image: 'assets/icons/ic_appicon.png'),
+            const AppIconWidget(image: 'assets/icons/ic_app_icon.png'),
             const SizedBox(height: 24.0),
-            // _buildUserIdField(),
-            // _buildPasswordField(),
-            // _buildForgotPasswordButton(),
             _buildSignInButton()
           ],
         ),
@@ -80,12 +79,17 @@ class LoginScreen extends StatelessWidget {
 
   Widget _buildSignInButton() {
     return RoundedButtonWidget(
-      buttonText: 'login_btn_sign_in',
-      buttonColor: Colors.orangeAccent,
+      buttonText: 'Sign in with Google',
+      buttonColor: Colors.red,
       textColor: Colors.white,
+      icon: const Icon(
+        Icons.golf_course,
+        color: Colors.white,
+      ),
       onPressed: () async {
         await userRepositoryImpl.signInwWithGoogle();
       },
+      size: ButtonSize.large,
     );
   }
 }
