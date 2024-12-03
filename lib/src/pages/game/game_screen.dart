@@ -5,17 +5,12 @@ import 'package:equiz/src/core/widgets/bottom_navigator.dart';
 import 'package:equiz/src/utils/routing.dart';
 import 'package:flutter/material.dart';
 
+import 'entity/card_entity.dart';
 import 'widgets/board_game.dart';
 
-/// Generates a list of `count` unique random numbers from `min` to `max` (inclusive)
-List<int> _getRandomItems(int count, int min, int max) {
-  // Create a list of numbers from `min` to `max`
+List<CardImage> _getRandomCardItems(int count, int min, int max) {
   List<int> numbers = List.generate(max - min + 1, (index) => index + min);
-  // Shuffle the list to randomize
-  // numbers.shuffle(Random());
-  // Take the first `count` numbers
   List<int> originalList = numbers.take(count).toList();
-
   List<int> clonedList = [];
 
   // Clone each item twice
@@ -27,7 +22,10 @@ List<int> _getRandomItems(int count, int min, int max) {
   // Shuffle the cloned list
   clonedList.shuffle(Random());
 
-  return clonedList;
+  return clonedList.map((imgIndex) {
+    return CardImage(
+        imgPath: 'assets/images/memory_game/vegetables/$imgIndex.png');
+  }).toList();
 }
 
 class GameScreen extends StatefulWidget {
@@ -38,14 +36,27 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
-  late String selectedTopic = 'a';
-  late List<int> showItems = [];
-  late List<int> disabledItems = [];
-  final List<int> allCardItems = _getRandomItems(18, 1, 40);
+  late String selectedTopic = 'Vegetables';
   late bool isDisabledOnTap = false;
+  late List<CardImage> allCardItems = _getRandomCardItems(18, 1, 40);
+  late int crossAxisCount = 0;
+  late int rowCount = 0;
+  late int previousSelectedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
+    if (MediaQuery.of(context).orientation == Orientation.landscape) {
+      setState(() {
+        crossAxisCount = 6;
+        rowCount = 6;
+      });
+    } else {
+      setState(() {
+        crossAxisCount = 4;
+        rowCount = 9;
+      });
+    }
+
     return Scaffold(
         appBar: selectedTopic != '' ? _buildAppBar() : null,
         body: _buildBody(),
@@ -115,14 +126,6 @@ class _GameScreenState extends State<GameScreen> {
   Widget _buildCardItem() {
     return LayoutBuilder(
       builder: (context, constraints) {
-        late int crossAxisCount = 4;
-        late int rowCount = 9;
-
-        if (MediaQuery.of(context).orientation == Orientation.landscape) {
-          crossAxisCount = 6;
-          rowCount = 6;
-        }
-
         final double itemWidth = constraints.maxWidth / crossAxisCount;
         final double itemHeight =
             (constraints.maxHeight - kToolbarHeight) / rowCount;
@@ -132,51 +135,49 @@ class _GameScreenState extends State<GameScreen> {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
-              crossAxisCount:
-                  MediaQuery.of(context).orientation == Orientation.landscape
-                      ? rowCount
-                      : crossAxisCount,
+              crossAxisCount: crossAxisCount,
               childAspectRatio: itemWidth / itemHeight),
           itemCount: allCardItems.length,
-          itemBuilder: (context, index) {
+          itemBuilder: (context, selectedIndex) {
             return CustomCard(
-              isDisabled: disabledItems.contains(index),
-              isDisabledOnTap: isDisabledOnTap,
-              child: (showItems.contains(index))
-                  ? Image.asset(
-                      'assets/images/memory_game/${allCardItems[index]}.png',
-                      fit: BoxFit.cover,
-                    )
-                  : null,
+              isDisabled: allCardItems[selectedIndex].isDisable,
+              isDisabledOnTap: isDisabledOnTap ||
+                  allCardItems[selectedIndex].isDisabledOnTap,
+              child: allCardItems[selectedIndex],
               onTap: () async {
-                showItems.add(index);
+                allCardItems[selectedIndex].isVisible = true;
+                allCardItems[selectedIndex].isDisabledOnTap = true;
+
                 setState(() {
-                  showItems = showItems;
-                  isDisabledOnTap = showItems.length % 2 == 0;
+                  allCardItems = allCardItems;
+                  isDisabledOnTap = previousSelectedIndex != -1;
+                  previousSelectedIndex = previousSelectedIndex == -1
+                      ? selectedIndex
+                      : previousSelectedIndex;
                 });
 
-                if (showItems.length >= 2 && showItems.length % 2 == 0) {
-                  final previousIndex = showItems[showItems.length - 2];
-                  final currentIndex = showItems[showItems.length - 1];
+                if (isDisabledOnTap) {
+                  await Future.delayed(
+                      const Duration(milliseconds: 1000), () {});
 
-                  if (allCardItems[previousIndex] ==
-                      allCardItems[currentIndex]) {
-                    disabledItems.add(previousIndex);
-                    disabledItems.add(currentIndex);
-                    setState(() {
-                      disabledItems = disabledItems;
-                      isDisabledOnTap = false;
-                    });
+                  // tap 2nd
+                  if (allCardItems[selectedIndex].imgPath ==
+                      allCardItems[previousSelectedIndex].imgPath) {
+                    allCardItems[selectedIndex].isDisable = true;
+                    allCardItems[previousSelectedIndex].isDisable = true;
                   } else {
-                    await Future.delayed(
-                        const Duration(milliseconds: 1000), () {});
-                    showItems.removeLast();
-                    showItems.removeLast();
-                    setState(() {
-                      showItems = showItems;
-                      isDisabledOnTap = false;
-                    });
+                    allCardItems[selectedIndex].isVisible = false;
+                    allCardItems[selectedIndex].isDisabledOnTap = false;
+
+                    allCardItems[previousSelectedIndex].isVisible = false;
+                    allCardItems[previousSelectedIndex].isDisabledOnTap = false;
                   }
+
+                  setState(() {
+                    allCardItems = allCardItems;
+                    isDisabledOnTap = false;
+                    previousSelectedIndex = -1;
+                  });
                 }
               },
             );

@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../entity/card_entity.dart';
+
 class CustomCard extends StatelessWidget {
   final bool isDisabled;
   final bool isDisabledOnTap;
   final Function onTap;
-  final Widget? child;
+  final CardImage child;
 
   const CustomCard(
       {super.key,
       this.isDisabled = false,
       this.isDisabledOnTap = false,
       required this.onTap,
-      this.child});
+      required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,12 @@ class CustomCard extends StatelessWidget {
                       Colors.transparent, // No filter when enabled
                       BlendMode.dst,
                     ),
-              child: child,
+              child: child.isVisible
+                  ? Image.asset(
+                      child.imgPath,
+                      fit: BoxFit.cover,
+                    )
+                  : null,
             )));
   }
 }
